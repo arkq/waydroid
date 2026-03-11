@@ -73,7 +73,7 @@ def init(args):
     if args.action == "container" and not args.details_to_stdout:
         try:
             os.chmod(args.log, 0o644)
-        except:
+        except Exception:
             pass
         handler = RotatingFileHandler(args.log, maxBytes=5*1024*1024, backupCount=1)
         handler.setFormatter(logging.Formatter("(%(process)d) [%(asctime)s] %(message)s",

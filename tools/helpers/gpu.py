@@ -54,7 +54,7 @@ def getVulkanDriver(args, dev):
                 "/sys/kernel/debug/dri/{}/i915_capabilities".format(getMinor(args, dev))], output_return=True, check=False)
             if int(gen) < 9:
                 return "intel_hasvk"
-        except:
+        except Exception:
             pass
 
     if kernel_driver in mapping:

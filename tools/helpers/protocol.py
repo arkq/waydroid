@@ -10,7 +10,7 @@ def set_aidl_version(args):
         android_api = int(helpers.props.file_get(args,
                 tools.config.defaults["rootfs"] + "/system/build.prop",
                 "ro.build.version.sdk"))
-    except:
+    except Exception:
         logging.error("Failed to parse android version from system.img")
 
     if android_api < 28:

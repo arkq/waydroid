@@ -41,7 +41,7 @@ def get(args):
                 if sha256sum(f) != system_response['id']:
                     try:
                         os.remove(images_zip)
-                    except:
+                    except OSError:
                         pass
                     raise ValueError("Downloaded system image hash doesn't match, expected: {}".format(
                         system_response['id']))
@@ -71,7 +71,7 @@ def get(args):
                 if sha256sum(f) != vendor_response['id']:
                     try:
                         os.remove(images_zip)
-                    except:
+                    except OSError:
                         pass
                     raise ValueError("Downloaded vendor image hash doesn't match, expected: {}".format(
                         vendor_response['id']))

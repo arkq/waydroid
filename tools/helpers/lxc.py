@@ -134,7 +134,7 @@ def get_apparmor_status(args):
     try:
         with open("/sys/kernel/security/apparmor/profiles", "r") as f:
             enabled &= (LXC_APPARMOR_PROFILE in f.read())
-    except:
+    except Exception:
         enabled = False
     return enabled
 
@@ -242,7 +242,7 @@ def make_base_props(args):
         try:
             sm = gbinder.ServiceManager("/dev/hwbinder")
             return intf in sm.list_sync()
-        except:
+        except Exception:
             return False
 
     props = []
@@ -385,7 +385,7 @@ def status(args):
     command = ["lxc-info", "-P", tools.config.defaults["lxc"], "-n", "waydroid", "-sH"]
     try:
         return tools.helpers.run.user(args, command, output_return=True).strip()
-    except:
+    except Exception:
         logging.info("Couldn't get LXC status. Assuming STOPPED.")
         return "STOPPED"
 
@@ -409,7 +409,7 @@ def start(args):
     # Workaround lxc-start changing stdout/stderr permissions to 700
     try:
         os.chmod(args.log, 0o666)
-    except:
+    except Exception:
         pass
 
 def stop(args):
@@ -453,7 +453,7 @@ def android_env_attach_options(args):
                 _, k, v = line.split(' ', 2)
                 if any(pattern in k for pattern in allowed):
                     local_env[k] = v
-    except:
+    except Exception:
         pass
     env = [k + "=" + v for k, v in local_env.items()]
     return [x for var in env for x in ("--set-var", var)]

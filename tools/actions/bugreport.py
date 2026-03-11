@@ -71,7 +71,7 @@ The information will be stored on your machine.\n\
     try:
         subprocess.run(["sudo", "-v"])
         print()
-    except:
+    except Exception:
         return
 
     procs = []

@@ -419,7 +419,7 @@ def remote_init_client(args):
             if self.initializing:
                 try:
                     tools.helpers.ipc.DBusContainerService("/Initializer", "id.waydro.Initializer").Cancel()
-                except:
+                except Exception:
                     pass
             Gtk.main_quit()
 

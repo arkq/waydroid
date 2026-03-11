@@ -108,7 +108,7 @@ def start(args):
     def sigint_handler(data):
         try:
             stop(args)
-        except:
+        except Exception:
             pass
         mainloop.quit()
 
@@ -181,7 +181,7 @@ def do_start(args, session):
         try:
             os.mkdir("/sys/fs/cgroup/schedtune/probe0")
             os.mkdir("/sys/fs/cgroup/schedtune/probe0/probe1")
-        except:
+        except OSError:
             command = ["umount", "-l", "/sys/fs/cgroup/schedtune"]
             tools.helpers.run.user(args, command, check=False)
         finally:
@@ -261,7 +261,7 @@ def stop(args, quit_session=True):
         # Backwards compatibility
         try:
             helpers.mount.umount_all(args, tools.config.defaults["data"])
-        except:
+        except Exception:
             pass
 
         if "session" in args:
@@ -269,10 +269,10 @@ def stop(args, quit_session=True):
                 logging.info("Terminating session because the container was stopped")
                 try:
                     os.kill(int(args.session["pid"]), signal.SIGUSR1)
-                except:
+                except OSError:
                     pass
             del args.session
-    except:
+    except Exception:
         pass
 
 def restart(args):
